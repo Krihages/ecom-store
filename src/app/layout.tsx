@@ -1,8 +1,15 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Poppins } from "next/font/google";
 import "./globals.css";
+import Header from "@/components/Header";
+import Providers from "@/components/Providers/Providers";
+import Footer from "@/components/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+});
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -15,8 +22,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
-    </html>
+    <Providers>
+      <html lang="en" className={`${poppins.className} `}>
+        <body className="flex flex-col justify-between gap-20 min-h-screen">
+          <div className="flex flex-col gap-20">
+            <Header />
+            <main className="flex flex-col gap-10 ">{children}</main>
+          </div>
+          <Footer />
+        </body>
+      </html>
+    </Providers>
   );
 }

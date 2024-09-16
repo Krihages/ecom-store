@@ -1,19 +1,23 @@
 "use client";
 
-import { useState, useContext } from "react";
-import { useRouter } from "next/navigation";
+import { useContext, useEffect } from "react";
+import { redirect } from "next/navigation";
 import CartItem from "./CartItem";
 import Link from "next/link";
 import totalPrice from "@/utils/helpers/totalPrice";
 import { CartContext } from "./Providers/CartProvider";
+import { useRouter } from "next/navigation";
 
 export default function CheckoutItems() {
   const { cart } = useContext(CartContext) || { cart: [] };
 
-  if (typeof window !== "undefined" && cart.length === 0) {
-    window.location.href = "/";
-    return null;
-  }
+  const router = useRouter();
+
+  useEffect(() => {
+    if (cart.length === 0) {
+      router.push("/");
+    }
+  }, [cart.length, router]); //
 
   return (
     <section className="flex flex-col max-w-80">

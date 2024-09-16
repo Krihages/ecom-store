@@ -9,7 +9,7 @@ export function useClearCart() {
   useEffect(() => {
     clearCart();
     setCart && setCart([]);
-  }, []);
+  }, [setCart]);
 
   const clearCart = () => {
     localStorage.removeItem("cart");

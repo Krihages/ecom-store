@@ -1,11 +1,12 @@
 "use client";
 
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import CartIcon from "../Icons/Cart";
 import { CartContext, CartProduct } from "../Providers/CartProvider";
 import Dropdown from "../Dropdown";
 import Link from "next/link";
 import CartItem from "../CartItem";
+import { usePathname } from "next/navigation";
 
 type MenuProps = {
   isOpen: boolean;
@@ -16,6 +17,11 @@ type MenuProps = {
 export default function Cart() {
   const { cart } = useContext(CartContext) || { cart: [] };
   const [isOpen, setIsOpen] = useState(false);
+  const pathname = usePathname();
+
+  useEffect(() => {
+    setIsOpen(false);
+  }, [pathname]);
 
   function handleOpen(e: React.MouseEvent<HTMLDivElement>) {
     if (isOpen === true) return null;
